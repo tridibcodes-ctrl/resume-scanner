@@ -37,8 +37,4 @@ backend/uploads/
 # Pytest
 .pytest_cache/
 
-# Local Scratch & Git Strategy Plans (Do not push to public repo)
-resume-scanner-frontend-design/
-GIT_COMMIT_PLAN.md
-setup_git_history.ps1
 
