@@ -1,0 +1,23 @@
+# Web framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# PDF extraction
+pdfplumber
+
+# LLM client (OpenAI-compatible SDK)
+openai
+
+# Database
+aiosqlite
+
+# Utilities
+python-dotenv
+pydantic
+pydantic-settings
+
+# Testing
+pytest
+pytest-asyncio
+httpx
