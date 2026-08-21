@@ -1,0 +1,33 @@
+Senior Software Engineer
+
+About the Role
+We are looking for a Senior Software Engineer to join our Product Engineering team. You will design, build, and maintain scalable web applications that serve millions of users. You'll work closely with product managers, designers, and other engineers in an agile environment.
+
+Requirements
+- 5+ years of professional software development experience
+- Strong proficiency in JavaScript/TypeScript and at least one backend language (Python, Java, or Go)
+- Experience with modern frontend frameworks (React, Angular, or Vue.js)
+- Experience with Node.js or similar server-side JavaScript runtime
+- Solid understanding of relational databases (PostgreSQL, MySQL) and NoSQL databases (MongoDB, Redis)
+- Experience with cloud services (AWS, GCP, or Azure)
+- Familiarity with containerization (Docker) and orchestration (Kubernetes)
+- Experience with CI/CD pipelines and automated testing
+- Strong understanding of RESTful API design and microservices architecture
+- Bachelor's degree in Computer Science or related field (or equivalent experience)
+
+Nice to Have
+- Experience with GraphQL
+- Knowledge of infrastructure-as-code (Terraform, CloudFormation)
+- Experience with real-time systems (WebSockets, event-driven architecture)
+- Contributions to open-source projects
+- Experience mentoring junior engineers
+- AWS or GCP certifications
+
+Responsibilities
+- Design and implement scalable, maintainable backend services and APIs
+- Build responsive, performant user interfaces using modern frontend frameworks
+- Collaborate with cross-functional teams to define technical requirements
+- Participate in code reviews and contribute to engineering best practices
+- Monitor application performance and troubleshoot production issues
+- Mentor junior team members and contribute to a culture of technical excellence
+- Write comprehensive tests (unit, integration, e2e) to ensure code quality

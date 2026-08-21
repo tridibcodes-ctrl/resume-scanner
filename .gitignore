@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+venv/
+.venv/
+env/
+
+# Environment
+.env
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/dist/
+
+# Uploads
+backend/uploads/
+
+# Logs
+*.log
+
+# Pytest
+.pytest_cache/
+
+# Local Scratch & Git Strategy Plans (Do not push to public repo)
+resume-scanner-frontend-design/
+GIT_COMMIT_PLAN.md
+setup_git_history.ps1
+

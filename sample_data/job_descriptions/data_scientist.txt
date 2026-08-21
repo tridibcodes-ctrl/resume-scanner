@@ -1,0 +1,31 @@
+Data Scientist
+
+About the Role
+We are hiring a Data Scientist to join our Analytics team. You will leverage statistical methods and machine learning to extract insights from large datasets and build predictive models that drive business decisions.
+
+Requirements
+- 3+ years of experience in data science or a related quantitative field
+- Strong proficiency in Python and SQL
+- Experience with machine learning libraries (scikit-learn, TensorFlow, or PyTorch)
+- Solid foundation in statistics and probability
+- Experience with data manipulation and analysis tools (Pandas, NumPy)
+- Experience with data visualization (Matplotlib, Seaborn, Tableau, or Power BI)
+- Experience working with large datasets and databases (PostgreSQL, BigQuery, or similar)
+- Master's degree or PhD in Statistics, Mathematics, Computer Science, or related field
+
+Nice to Have
+- Experience with deep learning and NLP
+- Knowledge of cloud platforms (AWS SageMaker, GCP Vertex AI)
+- Experience with A/B testing and experimentation frameworks
+- Familiarity with Apache Spark or other big data tools
+- Published research or conference presentations
+- Experience with MLOps and model deployment
+
+Responsibilities
+- Develop and deploy machine learning models to solve business problems
+- Analyze large, complex datasets to identify patterns, trends, and opportunities
+- Design and analyze A/B tests to measure the impact of product changes
+- Build data pipelines and automate reporting workflows
+- Communicate findings to stakeholders through clear visualizations and presentations
+- Collaborate with engineering teams to integrate models into production systems
+- Stay current with the latest developments in data science and machine learning

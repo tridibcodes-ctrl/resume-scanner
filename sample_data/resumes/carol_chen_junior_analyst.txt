@@ -1,0 +1,43 @@
+Carol Chen
+carol.chen@email.com | (555) 345-6789
+GitHub: github.com/carolchen
+
+OBJECTIVE
+Junior Data Analyst with 2 years of experience in data analysis and visualization, seeking to transition into a data-driven software engineering role. Strong foundation in Python and SQL with a passion for building data products.
+
+SKILLS
+Python, SQL, R, Pandas, NumPy, Matplotlib, Seaborn, Tableau, Power BI, Excel, Jupyter, Statistics, Data Visualization, Data Analysis, Git, Basic HTML, Basic CSS
+
+EXPERIENCE
+Data Analyst | MarketInsights Co.
+Jun 2023 - Present
+- Analyze customer behavior data using Python (Pandas, NumPy) and SQL to generate weekly reports
+- Built interactive dashboards in Tableau for marketing team, tracking KPIs across 3 product lines
+- Conducted A/B test analysis for website redesign, resulting in 15% conversion improvement
+- Wrote Python scripts to automate data cleaning and ETL processes
+
+Data Analyst Intern | RetailMetrics LLC
+Jan 2023 - May 2023
+- Assisted senior analysts in querying large datasets using SQL (PostgreSQL)
+- Created data visualizations using Matplotlib and Seaborn for quarterly business reviews
+- Cleaned and preprocessed datasets with 500K+ rows for predictive modeling projects
+
+EDUCATION
+Master of Science in Statistics
+University of California, Berkeley
+Graduated: 2022
+
+Bachelor of Science in Mathematics
+University of Michigan
+Graduated: 2020
+
+PROJECTS
+Customer Churn Predictor
+- Built a machine learning model (logistic regression, random forest) to predict customer churn
+- Achieved 82% accuracy on test set using scikit-learn
+- Technologies: Python, scikit-learn, Pandas, Jupyter
+
+COVID-19 Data Dashboard
+- Created an interactive web dashboard for COVID-19 statistics using Python and Plotly Dash
+- Deployed on Heroku with automatic daily data updates
+- Technologies: Python, Plotly, Dash, Heroku

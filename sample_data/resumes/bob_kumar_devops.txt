@@ -1,0 +1,51 @@
+Bob Kumar
+bob.kumar@email.com | (555) 234-5678
+LinkedIn: linkedin.com/in/bobkumar
+
+SUMMARY
+DevOps Engineer with 5 years of experience in cloud infrastructure, automation, and CI/CD pipeline management. Strong background in containerization, infrastructure as code, and monitoring. Seeking to leverage infrastructure expertise in a senior engineering role.
+
+SKILLS
+Docker, Kubernetes, AWS, Azure, Terraform, Ansible, Jenkins, GitHub Actions, GitLab CI, Python, Bash, Shell Scripting, Linux, Nginx, Prometheus, Grafana, ELK Stack, Helm, ArgoCD, CI/CD, Infrastructure as Code, Monitoring, PostgreSQL, Redis, Git, Agile
+
+EXPERIENCE
+Senior DevOps Engineer | CloudFirst Solutions
+Jul 2022 - Present
+- Manage Kubernetes clusters (50+ microservices) across AWS EKS for a fintech platform
+- Built infrastructure-as-code using Terraform, reducing provisioning time from days to minutes
+- Designed and maintained CI/CD pipelines for 15 development teams using GitHub Actions
+- Implemented comprehensive monitoring with Prometheus + Grafana, reducing MTTR by 60%
+- Automated security scanning and compliance checks in deployment pipeline
+
+DevOps Engineer | DataPipe Inc.
+Jan 2020 - Jun 2022
+- Containerized 20+ legacy applications using Docker, migrating to Kubernetes
+- Managed AWS infrastructure (EC2, RDS, S3, CloudFront) for multi-tenant SaaS platform
+- Set up centralized logging with ELK Stack for debugging and performance analysis
+- Wrote automation scripts in Python and Bash for deployment and maintenance tasks
+
+Junior Systems Administrator | TechServ Corp
+Aug 2019 - Dec 2019
+- Administered Linux servers (Ubuntu, CentOS) and managed user access
+- Assisted in migrating on-premise workloads to AWS cloud
+- Monitored system health and resolved infrastructure incidents
+
+EDUCATION
+Bachelor of Technology in Information Technology
+Indian Institute of Technology (IIT) Delhi
+Graduated: 2019
+
+PROJECTS
+Kubernetes Deployment Automation
+- Built a custom Helm chart generator for standardized microservice deployments
+- Reduced deployment configuration time by 70%
+- Technologies: Kubernetes, Helm, Go, Python
+
+Infrastructure Cost Optimizer
+- Developed a Python tool to analyze AWS resource usage and recommend cost savings
+- Identified $50K/year in potential savings for client infrastructure
+- Technologies: Python, AWS SDK (Boto3), Pandas
+
+CERTIFICATIONS
+- AWS Certified DevOps Engineer - Professional
+- Certified Kubernetes Administrator (CKA)

@@ -1,0 +1,52 @@
+Alice Johnson
+alice.johnson@email.com | (555) 123-4567
+LinkedIn: linkedin.com/in/alicejohnson | GitHub: github.com/alicejohnson
+
+PROFESSIONAL SUMMARY
+Senior Full-Stack Software Engineer with 8+ years of experience building scalable web applications. Passionate about clean architecture, performance optimization, and mentoring junior developers. Experienced in leading cross-functional teams and delivering products used by millions of users.
+
+SKILLS
+JavaScript, TypeScript, Python, Java, React, React.js, Next.js, Node.js, Express.js, Django, PostgreSQL, MongoDB, Redis, AWS, Amazon Web Services, Docker, Kubernetes, CI/CD, GitHub Actions, GraphQL, REST APIs, HTML, CSS, Tailwind CSS, Git, Agile, Scrum, System Design, Microservices, Test-Driven Development, Jest, Pytest
+
+EXPERIENCE
+Senior Software Engineer | TechCorp Inc.
+Jan 2021 - Present
+- Lead a team of 6 engineers building a real-time analytics platform serving 2M+ daily active users
+- Architected microservices infrastructure using Node.js, React, and AWS (ECS, Lambda, DynamoDB)
+- Reduced API response time by 40% through Redis caching and query optimization
+- Implemented CI/CD pipelines with GitHub Actions, achieving 99.9% deployment success rate
+- Mentored 3 junior developers through code reviews and pair programming sessions
+
+Full-Stack Developer | WebSolutions Ltd.
+Mar 2018 - Dec 2020
+- Built and maintained 5 client-facing web applications using React, Node.js, and PostgreSQL
+- Designed RESTful APIs consumed by web and mobile clients (100K+ daily requests)
+- Migrated legacy jQuery application to modern React/TypeScript stack
+- Introduced automated testing (Jest + Cypress), increasing code coverage from 20% to 85%
+
+Software Developer | StartupXYZ
+Jun 2016 - Feb 2018
+- Developed core features for a SaaS platform using Python/Django and JavaScript
+- Built real-time notification system using WebSockets and Redis
+- Collaborated with product team to define technical requirements and sprint planning
+- Deployed and managed applications on AWS EC2 and S3
+
+EDUCATION
+Bachelor of Science in Computer Science
+Massachusetts Institute of Technology (MIT)
+Graduated: 2016
+
+PROJECTS
+Real-Time Collaboration Tool
+- Built a Google Docs-like collaboration tool using React, Node.js, and WebSocket
+- Implemented operational transformation for conflict-free concurrent editing
+- Technologies: React, Node.js, WebSocket, MongoDB, Docker
+
+Open-Source CLI Framework
+- Created a CLI framework in TypeScript with 500+ GitHub stars
+- Published to npm with comprehensive documentation and test coverage
+- Technologies: TypeScript, Node.js, Jest
+
+CERTIFICATIONS
+- AWS Certified Solutions Architect - Associate
+- Google Cloud Professional Cloud Developer
