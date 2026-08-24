@@ -280,7 +280,3 @@ resume-scanner/
     ├── test_parser.py
     └── test_scorer.py
 ```
-
-## License
-
-MIT
