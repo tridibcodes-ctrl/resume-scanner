@@ -4,36 +4,8 @@ A resume screening tool that takes in PDF/text resumes and a job description, th
 
 The whole thing runs on free-tier LLM APIs (Google Gemini and Groq), so there's no cost involved.
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
-
-## How It Works
-
-The backend processes each resume through a multi-stage pipeline:
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Frontend (Vite)                       │
-│  Upload Resumes + JD  →  View Ranked Results + Details  │
-└──────────────────────────┬──────────────────────────────┘
-                           │ REST API
-┌──────────────────────────▼──────────────────────────────┐
-│                  Backend (FastAPI)                       │
-│                                                         │
-│  ┌───────────┐  ┌──────────┐  ┌─────────┐  ┌────────┐ │
-│  │pdfplumber │→ │  Regex   │→ │   LLM   │→ │ Scorer │ │
-│  │ Extract   │  │  Parser  │  │ Analyze │  │ Ranker │ │
-│  └───────────┘  └──────────┘  └────┬────┘  └────────┘ │
-│                                     │                   │
-│  ┌─────────────┐  ┌────────────────▼────────────────┐  │
-│  │   SQLite    │  │  Gemini API  /  Groq API        │  │
-│  │  Database   │  │  (free tier, structured JSON)   │  │
-│  └─────────────┘  └────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
 
 Step by step:
 
@@ -308,27 +280,6 @@ resume-scanner/
     ├── test_parser.py
     └── test_scorer.py
 ```
-
----
-
-## Deployment
-
-### Backend (Render — free tier)
-
-1. Push this repo to GitHub
-2. Connect the repo on [render.com](https://render.com)
-3. Create a Web Service pointing to the `backend/` directory
-4. Use the Docker environment on the free plan
-5. Set `GEMINI_API_KEY` and/or `GROQ_API_KEY` as environment variables
-
-### Frontend (Vercel — free tier)
-
-1. Connect the repo on [vercel.com](https://vercel.com)
-2. Set root directory to `frontend/`
-3. Add `VITE_API_URL` pointing to your Render backend URL
-4. Deploy
-
----
 
 ## License
 
