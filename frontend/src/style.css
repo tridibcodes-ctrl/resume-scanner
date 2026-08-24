@@ -1,10 +1,10 @@
-/* ═══════════════════════════════════════════════════════════════════════
+/* =======================================================================
    Smart Resume Screener — Warm Clay Design System
-   ═══════════════════════════════════════════════════════════════════════ */
+   ======================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
-/* ─── Design Tokens ──────────────────────────────────────────────────── */
+/* --- Design Tokens ---------------------------------------------------- */
 :root {
     --background: 39 43% 90%;
     --foreground: 25 23% 17%;
@@ -36,7 +36,7 @@
     --font-display: 'Manrope', sans-serif;
 }
 
-/* ─── Reset & Base ───────────────────────────────────────────────────── */
+/* --- Reset & Base ----------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -55,7 +55,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 }
 .font-display { font-family: var(--font-display); }
 
-/* ─── Clay Surface Utilities ─────────────────────────────────────────── */
+/* --- Clay Surface Utilities ------------------------------------------- */
 .clay-surface {
     position: relative;
     overflow: hidden;
@@ -75,7 +75,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
         inset -5px -5px 11px hsl(var(--shadow-light) / .78);
 }
 
-/* ─── Header ─────────────────────────────────────────────────────────── */
+/* --- Header ----------------------------------------------------------- */
 .header {
     position: sticky;
     top: 0;
@@ -129,7 +129,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     font-weight: 800;
 }
 
-/* ─── Main Layout ────────────────────────────────────────────────────── */
+/* --- Main Layout ------------------------------------------------------ */
 .main {
     max-width: 1100px;
     margin: 0 auto;
@@ -141,7 +141,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 
 .section { animation: fadeInUp .5s ease-out; }
 
-/* ─── Hero ───────────────────────────────────────────────────────────── */
+/* --- Hero ------------------------------------------------------------- */
 .hero {
     margin-bottom: 4px;
 }
@@ -169,7 +169,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     max-width: 520px;
 }
 
-/* ─── Section Header ─────────────────────────────────────────────────── */
+/* --- Section Header --------------------------------------------------- */
 .section-header {
     display: flex;
     align-items: center;
@@ -199,7 +199,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
         inset 2px 2px 0 hsl(var(--shadow-light) / .18);
 }
 
-/* ─── Upload Grid ────────────────────────────────────────────────────── */
+/* --- Upload Grid ------------------------------------------------------ */
 .upload-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -223,7 +223,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     margin-bottom: 18px;
 }
 
-/* ─── Dropzone ───────────────────────────────────────────────────────── */
+/* --- Dropzone --------------------------------------------------------- */
 .dropzone {
     position: relative;
     min-height: 220px;
@@ -300,12 +300,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     margin-top: 4px;
 }
 
-/* ─── Resume Actions ─────────────────────────────────────────────────── */
-.resume-actions {
-    margin-top: 10px;
-}
-
-/* ─── File List ──────────────────────────────────────────────────────── */
+/* --- File List -------------------------------------------------------- */
 .file-list {
     display: flex;
     flex-direction: column;
@@ -382,7 +377,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     background: hsl(var(--danger-soft));
 }
 
-/* ─── JD Textarea ────────────────────────────────────────────────────── */
+/* --- JD Textarea ------------------------------------------------------ */
 .jd-textarea {
     width: 100%;
     min-height: 200px;
@@ -425,7 +420,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     color: hsl(var(--muted-soft));
 }
 
-/* ─── Buttons ────────────────────────────────────────────────────────── */
+/* --- Buttons ---------------------------------------------------------- */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -487,7 +482,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     border-radius: 16px;
 }
 
-/* ─── Analyze Bar ────────────────────────────────────────────────────── */
+/* --- Analyze Bar ------------------------------------------------------ */
 .analyze-bar {
     display: flex;
     align-items: center;
@@ -503,7 +498,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     font-weight: 500;
 }
 
-/* ─── Spinner ────────────────────────────────────────────────────────── */
+/* --- Spinner ---------------------------------------------------------- */
 .spinner {
     display: inline-block;
     width: 16px;
@@ -522,7 +517,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     border-top-color: hsl(var(--accent));
 }
 
-/* ─── Progress Section ───────────────────────────────────────────────── */
+/* --- Progress Section ------------------------------------------------- */
 .progress-card {
     border-radius: 28px;
     padding: 36px;
@@ -610,7 +605,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     margin: 0 4px;
 }
 
-/* ─── Results Section ────────────────────────────────────────────────── */
+/* --- Results Section -------------------------------------------------- */
 .results-meta {
     color: hsl(var(--muted));
     font-size: 13px;
@@ -624,16 +619,113 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     gap: 14px;
 }
 
-/* ─── Candidate Card ──────�.skill-tag.matched {
+/* --- Candidate Card --------------------------------------------------- */
+.candidate-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    animation: fadeInUp .5s ease-out backwards;
+}
+
+.candidate-card:hover {
+    background: hsl(var(--accent-soft) / .4);
+    transform: translateX(3px);
+    box-shadow:
+        8px 10px 16px hsl(var(--shadow-dark) / .25),
+        -5px -5px 12px hsl(var(--shadow-light) / .7),
+        inset 1px 1px 0 hsl(var(--shadow-light) / .82);
+}
+
+.candidate-card-info { min-width: 0; }
+
+.candidate-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.candidate-rank {
+    font-size: 11px;
+    color: hsl(var(--muted-soft));
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.candidate-name {
+    font: 700 16px var(--font-display);
+    letter-spacing: -.02em;
+}
+
+.classification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .01em;
+}
+
+.badge-strong {
     background: hsl(var(--success-soft));
     color: hsl(var(--success));
-    border-color: hsl(var(--success) / .2);
+    border: 1px solid hsl(var(--success) / .2);
+}
+
+.badge-moderate {
+    background: hsl(var(--warning-soft));
+    color: hsl(var(--warning));
+    border: 1px solid hsl(var(--warning) / .2);
+}
+
+.badge-weak {
+    background: hsl(var(--danger-soft));
+    color: hsl(var(--danger));
+    border: 1px solid hsl(var(--danger) / .2);
+}
+
+.candidate-filename {
+    font-size: 12px;
+    color: hsl(var(--muted-soft));
+    margin-bottom: 8px;
+}
+
+.candidate-skills-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-tag {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 600;
+    background: hsl(var(--surface-deep) / .5);
+    color: hsl(var(--muted));
+    border: 1px solid hsl(var(--line) / .4);
+}
+
+.skill-tag.matched {
+    background: hsl(var(--success-soft));
+    color: hsl(var(--success));
+    border-color: hsl(var(--success) / .25);
 }
 
 .skill-tag.missing {
     background: hsl(var(--danger-soft));
     color: hsl(var(--danger));
-    border-color: hsl(var(--danger) / .2);
+    border-color: hsl(var(--danger) / .25);
 }
 
 .candidate-card-actions {
@@ -680,7 +772,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     transform: translateY(-1px);
 }
 
-/* ─── Score Ring (conic gradient) ─────────────────────────────────────── */
+/* --- Score Ring (conic gradient) --------------------------------------- */
 .score-ring {
     flex: 0 0 auto;
     display: grid;
@@ -718,7 +810,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     color: hsl(var(--muted-soft));
 }
 
-/* ─── Modal ──────────────────────────────────────────────────────────── */
+/* --- Modal ------------------------------------------------------------ */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -781,7 +873,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 
 .modal-content { padding: 28px 32px; }
 
-/* ─── Detail Header (Compact) ────────────────────────────────────────── */
+/* --- Detail Header (Compact) ------------------------------------------ */
 .detail-header {
     display: flex;
     align-items: center;
@@ -809,7 +901,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     margin-bottom: 8px;
 }
 
-/* ─── Split Panel Layout ─────────────────────────────────────────────── */
+/* --- Split Panel Layout ----------------------------------------------- */
 .detail-split {
     display: grid;
     grid-template-columns: 1fr 1.15fr;
@@ -846,7 +938,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     border-radius: 8px;
 }
 
-/* ─── Resume Viewer ──────────────────────────────────────────────────── */
+/* --- Resume Viewer ---------------------------------------------------- */
 .resume-viewer {
     flex: 1;
     max-height: 600px;
@@ -892,7 +984,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     color: hsl(var(--muted));
 }
 
-/* ─── Analysis Panel ─────────────────────────────────────────────────── */
+/* --- Analysis Panel --------------------------------------------------- */
 .detail-analysis-panel {
     max-height: 600px;
     overflow-y: auto;
@@ -915,7 +1007,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 
 .analysis-assessment p { margin: 0; }
 
-/* ─── Collapsible Analysis Segments ──────────────────────────────────── */
+/* --- Collapsible Analysis Segments ------------------------------------ */
 .analysis-segment {
     border-radius: 16px;
     margin-bottom: 12px;
@@ -1024,7 +1116,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     display: none;
 }
 
-/* ─── Segment Content Items ──────────────────────────────────── */
+/* --- Segment Content Items -------------------------------------------- */
 .segment-sub-label {
     font: 700 11px var(--font-sans);
     text-transform: uppercase;
@@ -1100,7 +1192,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     line-height: 1.5;
 }
 
-/* ─── Segment Experience Items ───────────────────────────────────────── */
+/* --- Segment Experience Items ----------------------------------------- */
 .segment-exp-item {
     padding: 12px 14px;
     border-radius: 12px;
@@ -1135,7 +1227,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     line-height: 1.5;
 }
 
-/* ─── Segment Education Items ────────────────────────────────────────── */
+/* --- Segment Education Items ------------------------------------------ */
 .segment-edu-item {
     padding: 12px 14px;
     border-radius: 12px;
@@ -1162,7 +1254,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     font-size: 11px;
 }
 
-/* ─── Segment Project Items ──────────────────────────────────────────── */
+/* --- Segment Project Items -------------------------------------------- */
 .segment-project-item {
     padding: 12px 14px;
     border-radius: 12px;
@@ -1193,7 +1285,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     gap: 4px;
 }
 
-/* ─── Strengths/Weaknesses in Segments ───────────────────────────────── */
+/* --- Strengths/Weaknesses in Segments --------------------------------- */
 .sw-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1234,7 +1326,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     font-size: 13px;
 }
 
-/* ─── Toast ──────────────────────────────────────────────────────────── */
+/* --- Toast ------------------------------------------------------------ */
 .status-toast {
     position: fixed;
     right: 24px;
@@ -1267,7 +1359,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     background: hsl(var(--accent));
 }
 
-/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+/* --- Scrollbar -------------------------------------------------------- */
 ::-webkit-scrollbar { width: 7px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
@@ -1276,7 +1368,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--line)); }
 
-/* ─── Animations ─────────────────────────────────────────────────────── */
+/* --- Animations ------------------------------------------------------- */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1306,116 +1398,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     to { transform: rotate(360deg); }
 }
 
-/* ─── Responsive ─────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-    .detail-split { grid-template-columns: 1fr; }
-    .resume-viewer { max-height: 360px; }
-    .detail-analysis-panel { max-height: none; }
-}
-
-@media (max-width: 768px) {
-    .header-content { padding: 14px 18px; }
-    .main { padding: 24px 18px 48px; gap: 24px; }
-    .upload-grid { grid-template-columns: 1fr; }
-    .hero-title { font-size: 28px; }
-    .upload-card { padding: 20px; border-radius: 22px; }
-    .dropzone { min-height: 180px; padding: 22px 14px; }
-    .analyze-bar { flex-direction: column; gap: 12px; text-align: center; }
-    .analyze-bar .btn-lg { width: 100%; }
-    .candidate-card { padding: 16px 18px; border-radius: 20px; }
-    .sw-split { grid-template-columns: 1fr; }
-    .detail-header { flex-direction: column; align-items: flex-start; }
-    .detail-header-left { flex-direction: column; align-items: flex-start; }
-    .modal-content { padding: 20px 18px; }
-    .modal { border-radius: 22px; }
-    .detail-header-info h2 { font-size: 20px; }
-    .progress-card { padding: 24px 18px; }
-}w-item.weakness {
-    background: hsl(var(--danger-soft));
-    border-left: 3px solid hsl(var(--danger));
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 24px;
-    color: hsl(var(--muted-soft));
-    font-size: 13px;
-}
-
-/* ─── Toast ──────────────────────────────────────────────────────────── */
-.status-toast {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 300;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: min(380px, calc(100vw - 40px));
-    padding: 14px 18px;
-    border: 1px solid hsl(var(--shadow-light) / .8);
-    border-radius: 18px;
-    color: hsl(var(--foreground));
-    background: hsl(var(--surface));
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow:
-        10px 12px 20px hsl(var(--shadow-dark) / .45),
-        -8px -8px 18px hsl(var(--shadow-light) / .82),
-        inset 1px 1px 0 hsl(var(--shadow-light) / .7);
-    animation: toast-in .25s ease both;
-    pointer-events: none;
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    background: hsl(var(--accent));
-}
-
-/* ─── Scrollbar ──────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 7px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-    background: hsl(var(--line) / .5);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover { background: hsl(var(--line)); }
-
-/* ─── Animations ─────────────────────────────────────────────────────── */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes modalSlideIn {
-    from { transform: translateY(16px) scale(.98); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-@keyframes grow {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-
-@keyframes toast-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* ─── Responsive ─────────────────────────────────────────────────────── */
+/* --- Responsive ------------------------------------------------------- */
 @media (max-width: 900px) {
     .detail-split { grid-template-columns: 1fr; }
     .resume-viewer { max-height: 360px; }
