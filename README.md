@@ -5,6 +5,13 @@ A resume screening tool that takes in PDF/text resumes and a job description, th
 The whole thing runs on free-tier LLM APIs (Google Gemini and Groq), so there's no cost involved.
 
 
+
+https://github.com/user-attachments/assets/66466f71-38a2-463b-97d6-2856e3f20618
+
+
+
+
+
 ---
 
 Step by step:
