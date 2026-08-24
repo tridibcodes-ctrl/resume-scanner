@@ -129,18 +129,6 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     font-weight: 800;
 }
 
-.header-status {
-    font-size: 12px;
-    font-weight: 600;
-    color: hsl(var(--muted-soft));
-    padding: 5px 12px;
-    border-radius: 10px;
-    background: hsl(var(--surface));
-    box-shadow:
-        3px 4px 6px hsl(var(--shadow-dark) / .3),
-        -2px -2px 5px hsl(var(--shadow-light) / .7);
-}
-
 /* ─── Main Layout ────────────────────────────────────────────────────── */
 .main {
     max-width: 1100px;

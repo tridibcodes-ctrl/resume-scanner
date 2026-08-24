@@ -97,7 +97,6 @@ const dom = {
     modalOverlay: $('#modal-overlay'),
     modalContent: $('#modal-content'),
     modalClose: $('#modal-close'),
-    headerStatus: $('#header-status'),
 };
 
 // ─── Initialize ─────────────────────────────────────────────────────────────
@@ -108,7 +107,6 @@ function init() {
     setupJdTextarea();
     setupAnalyzeButton();
     setupModal();
-    checkHealth();
 }
 
 function setupSampleResumesButton() {
@@ -117,29 +115,6 @@ function setupSampleResumesButton() {
         const files = SAMPLE_RESUMES.map(r => new File([r.content], r.name, { type: 'text/plain' }));
         addFiles(files);
     });
-}
-
-// ─── Health Check ───────────────────────────────────────────────────────────
-
-async function checkHealth() {
-    try {
-        const health = await api.health();
-        const providers = health.llm_providers;
-        const active = Object.entries(providers)
-            .filter(([, v]) => v)
-            .map(([k]) => k);
-        
-        if (active.length > 0) {
-            dom.headerStatus.textContent = `LLM: ${active.join(', ')}`;
-            dom.headerStatus.style.color = 'hsl(152 40% 36%)';
-        } else {
-            dom.headerStatus.textContent = 'Deterministic mode';
-            dom.headerStatus.style.color = 'hsl(35 54% 43%)';
-        }
-    } catch {
-        dom.headerStatus.textContent = 'Backend offline';
-        dom.headerStatus.style.color = 'hsl(0 48% 48%)';
-    }
 }
 
 // ─── Dropzone ───────────────────────────────────────────────────────────────
