@@ -461,9 +461,16 @@ function showDetail(candidate) {
 
     // Setup collapsible segments
     dom.modalContent.querySelectorAll('.segment-header').forEach(header => {
-        header.addEventListener('click', () => {
+        const toggle = () => {
             const segment = header.closest('.analysis-segment');
-            segment.classList.toggle('collapsed');
+            if (segment) segment.classList.toggle('collapsed');
+        };
+        header.addEventListener('click', toggle);
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
+            }
         });
     });
 
@@ -548,15 +555,17 @@ function buildAnalysisSegments(m, r) {
         },
     ];
 
-    return dimensions.map(d => {
+    return dimensions.map((d, index) => {
         const color = scoreBarColor(d.score);
         const pct = d.score;
         const verdict = d.score >= 75 ? 'Strong' : d.score >= 50 ? 'Adequate' : 'Weak';
         const verdictColor = d.score >= 75 ? 'hsl(152 40% 36%)' : d.score >= 50 ? 'hsl(35 54% 43%)' : 'hsl(0 45% 48%)';
+        // Open the first segment by default, keep others collapsed so the view is clean
+        const isCollapsed = index !== 0;
 
         return `
-            <div class="analysis-segment" data-segment="${d.key}">
-                <div class="segment-header">
+            <div class="analysis-segment ${isCollapsed ? 'collapsed' : ''}" data-segment="${d.key}">
+                <div class="segment-header" role="button" tabindex="0" title="Click to expand/collapse">
                     <div class="segment-header-left">
                         <span class="segment-icon" style="color: ${color}">${d.icon}</span>
                         <span class="segment-label">${d.label}</span>
@@ -577,8 +586,8 @@ function buildAnalysisSegments(m, r) {
         `;
     }).join('') + `
         <!-- Strengths & Weaknesses -->
-        <div class="analysis-segment" data-segment="summary">
-            <div class="segment-header">
+        <div class="analysis-segment collapsed" data-segment="summary">
+            <div class="segment-header" role="button" tabindex="0" title="Click to expand/collapse">
                 <div class="segment-header-left">
                     <span class="segment-icon" style="color: hsl(var(--accent))">★</span>
                     <span class="segment-label">Strengths & Gaps</span>
@@ -591,11 +600,11 @@ function buildAnalysisSegments(m, r) {
                 <div class="sw-split">
                     <div>
                         <div class="sw-subheading" style="color: hsl(152 40% 36%)">Strengths</div>
-                        ${m.strengths.map(s => `<div class="sw-item strength">${s}</div>`).join('')}
+                        ${m.strengths && m.strengths.length ? m.strengths.map(s => `<div class="sw-item strength">${s}</div>`).join('') : '<div class="empty-state">No specific strengths identified</div>'}
                     </div>
                     <div>
                         <div class="sw-subheading" style="color: hsl(0 45% 48%)">Gaps</div>
-                        ${m.weaknesses.map(w => `<div class="sw-item weakness">${w}</div>`).join('')}
+                        ${m.weaknesses && m.weaknesses.length ? m.weaknesses.map(w => `<div class="sw-item weakness">${w}</div>`).join('') : '<div class="empty-state">No specific gaps identified</div>'}
                     </div>
                 </div>
             </div>
