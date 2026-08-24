@@ -406,133 +406,320 @@ function showDetail(candidate) {
     const badgeClass = cls === 'Strong Match' ? 'badge-strong' :
                       cls === 'Moderate Match' ? 'badge-moderate' : 'badge-weak';
 
+    // Format resume text for display
+    const resumeHtml = formatResumeText(c.raw_text || '', c.filename);
+
+    // Build per-dimension analysis segments
+    const segments = buildAnalysisSegments(m, r);
+
     dom.modalContent.innerHTML = `
-        <div class="modal-header">
-            <div class="modal-score-gauge">
-                ${renderScoreRing(score, 140)}
-            </div>
-            <div class="modal-candidate-info">
-                <h2>${c.name || 'Unknown Candidate'}</h2>
-                <div class="modal-candidate-meta">
-                    ${r.email ? `<span>${r.email}</span>` : ''}
-                    ${r.phone ? `<span class="meta-separator">·</span><span>${r.phone}</span>` : ''}
-                    ${r.total_years_experience ? `<span class="meta-separator">·</span><span>${r.total_years_experience} years exp.</span>` : ''}
-                </div>
-                <span class="classification-badge ${badgeClass}">${cls}</span>
-                <div class="modal-justification" style="margin-top: 14px">
-                    <strong>Assessment:</strong> ${m.justification}
+        <!-- Compact Header -->
+        <div class="detail-header">
+            <div class="detail-header-left">
+                ${renderScoreRing(score, 100)}
+                <div class="detail-header-info">
+                    <h2>${c.name || 'Unknown Candidate'}</h2>
+                    <div class="detail-header-meta">
+                        ${r.email ? `<span>${r.email}</span>` : ''}
+                        ${r.phone ? `<span class="meta-separator">·</span><span>${r.phone}</span>` : ''}
+                        ${r.total_years_experience ? `<span class="meta-separator">·</span><span>${r.total_years_experience} years exp.</span>` : ''}
+                    </div>
+                    <span class="classification-badge ${badgeClass}">${cls}</span>
                 </div>
             </div>
         </div>
 
-        <!-- Score Bars -->
-        <div class="score-bars">
-            ${renderScoreBar('Skills', m.skills_score)}
-            ${renderScoreBar('Experience', m.experience_score)}
-            ${renderScoreBar('Education', m.education_score)}
-            ${renderScoreBar('Projects', m.project_score)}
-        </div>
-
-        <!-- Tabs -->
-        <div class="modal-tabs">
-            <button class="modal-tab active" data-tab="skills">Skills</button>
-            <button class="modal-tab" data-tab="strengths">Strengths & Gaps</button>
-            <button class="modal-tab" data-tab="experience">Experience</button>
-            <button class="modal-tab" data-tab="education">Education</button>
-        </div>
-
-        <!-- Skills Tab -->
-        <div class="tab-panel active" data-tab="skills">
-            <div class="skills-grid">
-                <div class="skills-column">
-                    <h4>Matched Skills (${m.matched_skills.length})</h4>
-                    <div class="skills-list">
-                        ${m.matched_skills.length ? m.matched_skills.map(s => `
-                            <div class="skill-match-item">
-                                <div>
-                                    <div class="skill-match-name" style="color: hsl(152 40% 36%)">${s.required_skill}</div>
-                                    <div class="skill-match-evidence">${s.evidence || `Matched: ${s.candidate_skill}`}</div>
-                                </div>
-                                <span class="skill-match-score" style="color: hsl(152 40% 36%)">${Math.round(s.similarity * 100)}%</span>
-                            </div>
-                        `).join('') : '<div class="empty-state">No matched skills</div>'}
-                    </div>
+        <!-- Split Panel Layout -->
+        <div class="detail-split">
+            <!-- Left: Resume Viewer -->
+            <div class="detail-panel detail-resume-panel">
+                <div class="panel-header">
+                    <h3>Resume</h3>
+                    <span class="panel-filename">${c.filename}</span>
                 </div>
-                <div class="skills-column">
-                    <h4>Missing Skills (${m.missing_skills.length})</h4>
-                    <div class="skills-list">
-                        ${m.missing_skills.length ? m.missing_skills.map(s => `
-                            <div class="skill-match-item">
-                                <span class="skill-match-name" style="color: hsl(0 45% 48%)">${s}</span>
-                            </div>
-                        `).join('') : '<div class="empty-state">No missing skills</div>'}
-                    </div>
+                <div class="resume-viewer">
+                    ${resumeHtml}
                 </div>
             </div>
-        </div>
 
-        <!-- Strengths & Weaknesses Tab -->
-        <div class="tab-panel" data-tab="strengths">
-            <div class="sw-grid">
-                <div>
-                    <h4 style="margin-bottom: 12px; color: hsl(152 40% 36%); font-size: 13px">Strengths</h4>
-                    <div class="sw-list">
-                        ${m.strengths.map(s => `<div class="sw-item strength">${s}</div>`).join('')}
-                    </div>
+            <!-- Right: Segmented Analysis -->
+            <div class="detail-panel detail-analysis-panel">
+                <div class="panel-header">
+                    <h3>Analysis</h3>
                 </div>
-                <div>
-                    <h4 style="margin-bottom: 12px; color: hsl(0 45% 48%); font-size: 13px">Areas for Improvement</h4>
-                    <div class="sw-list">
-                        ${m.weaknesses.map(w => `<div class="sw-item weakness">${w}</div>`).join('')}
-                    </div>
+
+                <!-- Assessment -->
+                <div class="analysis-assessment">
+                    <p>${m.justification}</p>
                 </div>
-            </div>
-        </div>
 
-        <!-- Experience Tab -->
-        <div class="tab-panel" data-tab="experience">
-            <div class="experience-list">
-                ${r.experience.length ? r.experience.map(e => `
-                    <div class="experience-item">
-                        <div class="experience-item-header">
-                            <div>
-                                <div class="experience-title">${e.title}</div>
-                                <div class="experience-company">${e.company}</div>
-                            </div>
-                            <span class="experience-date">${e.start_date || '?'} — ${e.end_date || '?'}</span>
-                        </div>
-                        <div class="experience-description">${e.description}</div>
-                    </div>
-                `).join('') : '<div class="empty-state">No experience entries found</div>'}
-            </div>
-        </div>
-
-        <!-- Education Tab -->
-        <div class="tab-panel" data-tab="education">
-            <div class="education-list">
-                ${r.education.length ? r.education.map(e => `
-                    <div class="education-item">
-                        <div class="education-degree">${e.degree}${e.field ? ` in ${e.field}` : ''}</div>
-                        <div class="education-institution">${e.institution}</div>
-                        ${e.year ? `<div class="education-year">Class of ${e.year}</div>` : ''}
-                    </div>
-                `).join('') : '<div class="empty-state">No education entries found</div>'}
+                <!-- Dimension Segments -->
+                ${segments}
             </div>
         </div>
     `;
 
-    // Setup tabs
-    dom.modalContent.querySelectorAll('.modal-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            dom.modalContent.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
-            dom.modalContent.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            dom.modalContent.querySelector(`.tab-panel[data-tab="${tab.dataset.tab}"]`).classList.add('active');
+    // Setup collapsible segments
+    dom.modalContent.querySelectorAll('.segment-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const segment = header.closest('.analysis-segment');
+            segment.classList.toggle('collapsed');
         });
     });
 
     dom.modalOverlay.classList.add('visible');
     document.body.style.overflow = 'hidden';
+}
+
+function formatResumeText(rawText, filename) {
+    if (!rawText || !rawText.trim()) {
+        return '<div class="empty-state">Resume text not available</div>';
+    }
+
+    // Escape HTML
+    let text = rawText
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    // Detect and highlight section headers (lines that look like headings)
+    const sectionPatterns = [
+        /^(PROFESSIONAL\s*SUMMARY|SUMMARY|PROFILE|OBJECTIVE|ABOUT\s*ME)/i,
+        /^(SKILLS|TECHNICAL\s*SKILLS|CORE\s*COMPETENCIES|TECHNOLOGIES)/i,
+        /^(EXPERIENCE|WORK\s*EXPERIENCE|PROFESSIONAL\s*EXPERIENCE|EMPLOYMENT)/i,
+        /^(EDUCATION|ACADEMIC|QUALIFICATIONS)/i,
+        /^(PROJECTS|PERSONAL\s*PROJECTS|KEY\s*PROJECTS)/i,
+        /^(CERTIFICATIONS?|LICENSES?|AWARDS?|ACHIEVEMENTS?)/i,
+        /^(PUBLICATIONS?|INTERESTS?|HOBBIES|VOLUNTEER|REFERENCES?)/i,
+    ];
+
+    const lines = text.split('\n');
+    const formattedLines = lines.map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '<div class="resume-line resume-blank">&nbsp;</div>';
+
+        // Check if this line is a section header
+        const isSection = sectionPatterns.some(p => p.test(trimmed));
+        if (isSection) {
+            return `<div class="resume-line resume-section-heading">${trimmed}</div>`;
+        }
+
+        // Check if line starts with bullet or dash
+        if (/^[-•●▪▸►]\s/.test(trimmed) || /^\d+\.\s/.test(trimmed)) {
+            return `<div class="resume-line resume-bullet">${trimmed}</div>`;
+        }
+
+        // First few non-empty lines are likely name/contact
+        return `<div class="resume-line">${trimmed}</div>`;
+    });
+
+    return formattedLines.join('');
+}
+
+function buildAnalysisSegments(m, r) {
+    const dimensions = [
+        {
+            key: 'skills',
+            label: 'Skills Match',
+            score: m.skills_score,
+            icon: '◆',
+            content: buildSkillsSegmentContent(m),
+        },
+        {
+            key: 'experience',
+            label: 'Experience Relevance',
+            score: m.experience_score,
+            icon: '▶',
+            content: buildExperienceSegmentContent(m, r),
+        },
+        {
+            key: 'education',
+            label: 'Education Alignment',
+            score: m.education_score,
+            icon: '●',
+            content: buildEducationSegmentContent(m, r),
+        },
+        {
+            key: 'projects',
+            label: 'Project Relevance',
+            score: m.project_score,
+            icon: '■',
+            content: buildProjectsSegmentContent(m, r),
+        },
+    ];
+
+    return dimensions.map(d => {
+        const color = scoreBarColor(d.score);
+        const pct = d.score;
+        const verdict = d.score >= 75 ? 'Strong' : d.score >= 50 ? 'Adequate' : 'Weak';
+        const verdictColor = d.score >= 75 ? 'hsl(152 40% 36%)' : d.score >= 50 ? 'hsl(35 54% 43%)' : 'hsl(0 45% 48%)';
+
+        return `
+            <div class="analysis-segment" data-segment="${d.key}">
+                <div class="segment-header">
+                    <div class="segment-header-left">
+                        <span class="segment-icon" style="color: ${color}">${d.icon}</span>
+                        <span class="segment-label">${d.label}</span>
+                    </div>
+                    <div class="segment-header-right">
+                        <span class="segment-verdict" style="color: ${verdictColor}">${verdict}</span>
+                        <span class="segment-score" style="color: ${color}">${pct}%</span>
+                        <span class="segment-chevron">▾</span>
+                    </div>
+                </div>
+                <div class="segment-bar">
+                    <div class="segment-bar-fill" style="width: ${pct}%; background: ${color}"></div>
+                </div>
+                <div class="segment-body">
+                    ${d.content}
+                </div>
+            </div>
+        `;
+    }).join('') + `
+        <!-- Strengths & Weaknesses -->
+        <div class="analysis-segment" data-segment="summary">
+            <div class="segment-header">
+                <div class="segment-header-left">
+                    <span class="segment-icon" style="color: hsl(var(--accent))">★</span>
+                    <span class="segment-label">Strengths & Gaps</span>
+                </div>
+                <div class="segment-header-right">
+                    <span class="segment-chevron">▾</span>
+                </div>
+            </div>
+            <div class="segment-body">
+                <div class="sw-split">
+                    <div>
+                        <div class="sw-subheading" style="color: hsl(152 40% 36%)">Strengths</div>
+                        ${m.strengths.map(s => `<div class="sw-item strength">${s}</div>`).join('')}
+                    </div>
+                    <div>
+                        <div class="sw-subheading" style="color: hsl(0 45% 48%)">Gaps</div>
+                        ${m.weaknesses.map(w => `<div class="sw-item weakness">${w}</div>`).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function buildSkillsSegmentContent(m) {
+    const matched = m.matched_skills;
+    const missing = m.missing_skills;
+
+    let html = '';
+
+    if (matched.length > 0) {
+        html += `<div class="segment-sub-label" style="color: hsl(152 40% 36%)">Matched (${matched.length})</div>`;
+        html += '<div class="segment-chips">';
+        html += matched.map(s =>
+            `<div class="segment-chip matched" title="${s.evidence || s.candidate_skill}">
+                <span>${s.required_skill}</span>
+                <span class="chip-score">${Math.round(s.similarity * 100)}%</span>
+            </div>`
+        ).join('');
+        html += '</div>';
+    }
+
+    if (missing.length > 0) {
+        html += `<div class="segment-sub-label" style="color: hsl(0 45% 48%); margin-top: 12px;">Missing (${missing.length})</div>`;
+        html += `<div class="segment-reason">These required skills were not found anywhere in the resume:</div>`;
+        html += '<div class="segment-chips">';
+        html += missing.map(s =>
+            `<span class="segment-chip missing">${s}</span>`
+        ).join('');
+        html += '</div>';
+    }
+
+    if (!matched.length && !missing.length) {
+        html = '<div class="empty-state">No skill data available</div>';
+    }
+
+    return html;
+}
+
+function buildExperienceSegmentContent(m, r) {
+    let html = '';
+
+    // Show experience entries
+    if (r.experience.length > 0) {
+        html += r.experience.map(e => `
+            <div class="segment-exp-item">
+                <div class="segment-exp-header">
+                    <strong>${e.title}</strong> at ${e.company}
+                    <span class="segment-exp-date">${e.start_date || '?'} — ${e.end_date || '?'}</span>
+                </div>
+                <div class="segment-exp-desc">${e.description}</div>
+            </div>
+        `).join('');
+    } else {
+        html += '<div class="segment-reason">No work experience entries were found in the resume.</div>';
+    }
+
+    // Show relevant weaknesses for experience
+    const expWeaknesses = m.weaknesses.filter(w =>
+        /experience|year|role|position|seniority/i.test(w)
+    );
+    if (expWeaknesses.length > 0) {
+        html += '<div class="segment-shortcoming-label">Why this score:</div>';
+        html += expWeaknesses.map(w => `<div class="segment-shortcoming">${w}</div>`).join('');
+    }
+
+    return html;
+}
+
+function buildEducationSegmentContent(m, r) {
+    let html = '';
+
+    if (r.education.length > 0) {
+        html += r.education.map(e => `
+            <div class="segment-edu-item">
+                <div class="segment-edu-degree">${e.degree}${e.field ? ` in ${e.field}` : ''}</div>
+                <div class="segment-edu-institution">${e.institution}</div>
+                ${e.year ? `<div class="segment-edu-year">Class of ${e.year}</div>` : ''}
+            </div>
+        `).join('');
+    } else {
+        html += '<div class="segment-reason">No education entries were found in the resume.</div>';
+    }
+
+    // Show relevant weaknesses for education
+    const eduWeaknesses = m.weaknesses.filter(w =>
+        /education|degree|bachelor|master|phd|university|college|field/i.test(w)
+    );
+    if (eduWeaknesses.length > 0) {
+        html += '<div class="segment-shortcoming-label">Why this score:</div>';
+        html += eduWeaknesses.map(w => `<div class="segment-shortcoming">${w}</div>`).join('');
+    }
+
+    return html;
+}
+
+function buildProjectsSegmentContent(m, r) {
+    let html = '';
+
+    if (r.projects.length > 0) {
+        html += r.projects.map(p => `
+            <div class="segment-project-item">
+                <div class="segment-project-name">${p.name}</div>
+                <div class="segment-project-desc">${p.description}</div>
+                ${p.technologies.length ? `<div class="segment-project-tech">${p.technologies.map(t => `<span class="segment-chip neutral">${t}</span>`).join('')}</div>` : ''}
+            </div>
+        `).join('');
+    } else {
+        html += '<div class="segment-reason">No project entries were found in the resume.</div>';
+    }
+
+    // Show relevant weaknesses for projects
+    const projWeaknesses = m.weaknesses.filter(w =>
+        /project|portfolio|hands-on|practical/i.test(w)
+    );
+    if (projWeaknesses.length > 0) {
+        html += '<div class="segment-shortcoming-label">Why this score:</div>';
+        html += projWeaknesses.map(w => `<div class="segment-shortcoming">${w}</div>`).join('');
+    }
+
+    return html;
 }
 
 function renderScoreBar(label, score) {

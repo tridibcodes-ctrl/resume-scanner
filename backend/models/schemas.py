@@ -190,6 +190,7 @@ class CandidateResult(BaseModel):
     name: str | None
     parsed_resume: ParsedResume
     match_analysis: MatchAnalysis
+    raw_text: str | None = Field(default=None, description="Original resume text for display")
 
 
 class SessionResultsResponse(BaseModel):

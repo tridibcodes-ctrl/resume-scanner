@@ -835,9 +835,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     background: hsl(var(--surface));
     border: 1px solid hsl(var(--shadow-light) / .85);
     border-radius: 28px;
-    max-width: 880px;
+    max-width: 1200px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 92vh;
     overflow-y: auto;
     position: relative;
     box-shadow:
@@ -875,77 +875,429 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     border-color: hsl(var(--danger) / .3);
 }
 
-.modal-content { padding: 32px; }
+.modal-content { padding: 28px 32px; }
 
-/* Modal Header */
-.modal-header {
+/* ─── Detail Header (Compact) ────────────────────────────────────────── */
+.detail-header {
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 28px;
-    padding-bottom: 24px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
     border-bottom: 1px solid hsl(var(--line) / .5);
 }
 
-.modal-score-gauge { flex-shrink: 0; }
+.detail-header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
 
-.modal-candidate-info h2 {
-    font: 800 26px var(--font-display);
+.detail-header-info h2 {
+    font: 800 22px var(--font-display);
     letter-spacing: -.035em;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
-.modal-candidate-meta {
+.detail-header-meta {
     color: hsl(var(--muted));
-    font-size: 13px;
-    margin-bottom: 12px;
+    font-size: 12px;
+    margin-bottom: 8px;
 }
 
-.modal-justification {
-    padding: 16px;
+/* ─── Split Panel Layout ─────────────────────────────────────────────── */
+.detail-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    min-height: 0;
+}
+
+.detail-panel {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid hsl(var(--line) / .35);
+}
+
+.panel-header h3 {
+    font: 700 14px var(--font-display);
+    letter-spacing: -.02em;
+    color: hsl(var(--foreground));
+}
+
+.panel-filename {
+    font-size: 11px;
+    color: hsl(var(--muted-soft));
+    background: hsl(var(--surface-deep) / .5);
+    padding: 3px 9px;
+    border-radius: 8px;
+}
+
+/* ─── Resume Viewer ──────────────────────────────────────────────────── */
+.resume-viewer {
+    flex: 1;
+    max-height: 520px;
+    overflow-y: auto;
+    padding: 18px;
     border-radius: 18px;
+    background: hsl(39 42% 91% / .6);
+    border: 1px solid hsl(var(--line) / .35);
+    box-shadow:
+        inset 4px 4px 9px hsl(var(--shadow-dark) / .12),
+        inset -4px -4px 9px hsl(var(--shadow-light) / .6);
+    font-family: 'DM Sans', -apple-system, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: hsl(var(--muted));
+}
+
+.resume-line {
+    padding: 1px 0;
+    word-wrap: break-word;
+}
+
+.resume-blank {
+    height: 10px;
+}
+
+.resume-section-heading {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: .06em;
+    color: hsl(var(--accent-deep));
+    margin-top: 14px;
+    margin-bottom: 4px;
+    padding: 4px 10px;
+    background: hsl(var(--accent-soft) / .5);
+    border-left: 3px solid hsl(var(--accent));
+    border-radius: 0 8px 8px 0;
+}
+
+.resume-bullet {
+    padding-left: 12px;
+    position: relative;
+    color: hsl(var(--muted));
+}
+
+/* ─── Analysis Panel ─────────────────────────────────────────────────── */
+.detail-analysis-panel {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.analysis-assessment {
+    padding: 14px;
+    border-radius: 14px;
     font-size: 13px;
     line-height: 1.65;
     color: hsl(var(--muted));
-    background: hsl(var(--accent-soft) / .5);
-    border: 1px solid hsl(var(--accent) / .12);
+    background: hsl(var(--accent-soft) / .4);
+    border: 1px solid hsl(var(--accent) / .1);
+    margin-bottom: 16px;
     box-shadow:
-        inset 3px 3px 7px hsl(var(--shadow-dark) / .12),
-        inset -3px -3px 7px hsl(var(--shadow-light) / .6);
+        inset 2px 2px 5px hsl(var(--shadow-dark) / .08),
+        inset -2px -2px 5px hsl(var(--shadow-light) / .5);
 }
 
-.modal-justification strong { color: hsl(var(--foreground)); }
+.analysis-assessment p { margin: 0; }
 
-/* Tabs */
-.modal-tabs {
+/* ─── Collapsible Analysis Segments ──────────────────────────────────── */
+.analysis-segment {
+    border-radius: 16px;
+    margin-bottom: 10px;
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--shadow-light) / .6);
+    box-shadow:
+        4px 5px 8px hsl(var(--shadow-dark) / .15),
+        -3px -3px 6px hsl(var(--shadow-light) / .6);
+    overflow: hidden;
+    transition: box-shadow .2s ease;
+}
+
+.analysis-segment:hover {
+    box-shadow:
+        5px 6px 10px hsl(var(--shadow-dark) / .2),
+        -3px -3px 8px hsl(var(--shadow-light) / .65);
+}
+
+.segment-header {
     display: flex;
-    gap: 3px;
-    margin-bottom: 22px;
-    border-bottom: 1px solid hsl(var(--line) / .5);
-    padding-bottom: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 8px;
+    cursor: pointer;
+    user-select: none;
 }
 
-.modal-tab {
-    padding: 10px 16px;
-    border-bottom: 2px solid transparent;
+.segment-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.segment-icon {
+    font-size: 10px;
+}
+
+.segment-label {
+    font: 600 13px var(--font-sans);
+    color: hsl(var(--foreground));
+}
+
+.segment-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.segment-verdict {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.segment-score {
+    font: 800 13px var(--font-display);
+}
+
+.segment-chevron {
     color: hsl(var(--muted-soft));
-    font-size: 13px;
+    font-size: 12px;
+    transition: transform .2s ease;
+}
+
+.analysis-segment.collapsed .segment-chevron {
+    transform: rotate(-90deg);
+}
+
+.segment-bar {
+    height: 4px;
+    margin: 0 16px 4px;
+    border-radius: 4px;
+    background: hsl(var(--surface-deep));
+    box-shadow:
+        inset 1px 1px 3px hsl(var(--shadow-dark) / .3),
+        inset -1px -1px 3px hsl(var(--shadow-light) / .6);
+    overflow: hidden;
+}
+
+.segment-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    animation: grow .6s ease both;
+    transform-origin: left;
+}
+
+.segment-body {
+    padding: 8px 16px 14px;
+    transition: max-height .3s ease, opacity .2s ease, padding .2s ease;
+    max-height: 600px;
+    opacity: 1;
+}
+
+.analysis-segment.collapsed .segment-body {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+/* ─── Segment Content Items ──────────────────────────────────────────── */
+.segment-sub-label {
+    font: 600 11px var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 8px;
+}
+
+.segment-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 4px;
+}
+
+.segment-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 9px;
+    font-size: 11px;
     font-weight: 600;
-    margin-bottom: -1px;
-    transition: color .2s ease, border-color .2s ease;
 }
 
-.modal-tab:hover { color: hsl(var(--foreground)); }
-
-.modal-tab.active {
-    color: hsl(var(--accent-deep));
-    border-bottom-color: hsl(var(--accent));
+.segment-chip.matched {
+    background: hsl(var(--success-soft));
+    color: hsl(var(--success));
+    border: 1px solid hsl(var(--success) / .2);
 }
 
-.tab-panel { display: none; }
-.tab-panel.active { display: block; animation: fadeIn .2s ease; }
+.segment-chip.missing {
+    background: hsl(var(--danger-soft));
+    color: hsl(var(--danger));
+    border: 1px solid hsl(var(--danger) / .2);
+}
 
-/* Metric Rows (Score Bars) */
+.segment-chip.neutral {
+    background: hsl(var(--surface-deep) / .5);
+    color: hsl(var(--muted));
+    border: 1px solid hsl(var(--line) / .4);
+}
+
+.chip-score {
+    font-size: 10px;
+    font-weight: 800;
+    opacity: .7;
+}
+
+.segment-reason {
+    font-size: 12px;
+    color: hsl(var(--muted-soft));
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.segment-shortcoming-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: hsl(var(--muted-soft));
+    margin-top: 12px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.segment-shortcoming {
+    font-size: 12px;
+    color: hsl(var(--muted));
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: hsl(var(--danger-soft) / .5);
+    border-left: 3px solid hsl(var(--danger));
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+/* ─── Segment Experience Items ───────────────────────────────────────── */
+.segment-exp-item {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: hsl(var(--surface));
+    border-left: 3px solid hsl(var(--accent));
+    margin-bottom: 8px;
+    box-shadow:
+        2px 3px 5px hsl(var(--shadow-dark) / .1),
+        -2px -2px 4px hsl(var(--shadow-light) / .5);
+}
+
+.segment-exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 12px;
+    color: hsl(var(--foreground));
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.segment-exp-date {
+    color: hsl(var(--muted-soft));
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.segment-exp-desc {
+    font-size: 11px;
+    color: hsl(var(--muted));
+    line-height: 1.5;
+}
+
+/* ─── Segment Education Items ────────────────────────────────────────── */
+.segment-edu-item {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: hsl(var(--surface));
+    border-left: 3px solid hsl(var(--coral));
+    margin-bottom: 8px;
+    box-shadow:
+        2px 3px 5px hsl(var(--shadow-dark) / .1),
+        -2px -2px 4px hsl(var(--shadow-light) / .5);
+}
+
+.segment-edu-degree {
+    font: 600 12px var(--font-display);
+    color: hsl(var(--foreground));
+}
+
+.segment-edu-institution {
+    color: hsl(var(--coral));
+    font-size: 11px;
+}
+
+.segment-edu-year {
+    color: hsl(var(--muted-soft));
+    font-size: 11px;
+}
+
+/* ─── Segment Project Items ──────────────────────────────────────────── */
+.segment-project-item {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: hsl(var(--surface));
+    border-left: 3px solid hsl(var(--gold));
+    margin-bottom: 8px;
+    box-shadow:
+        2px 3px 5px hsl(var(--shadow-dark) / .1),
+        -2px -2px 4px hsl(var(--shadow-light) / .5);
+}
+
+.segment-project-name {
+    font: 600 12px var(--font-display);
+    color: hsl(var(--foreground));
+    margin-bottom: 2px;
+}
+
+.segment-project-desc {
+    font-size: 11px;
+    color: hsl(var(--muted));
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.segment-project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* ─── Strengths/Weaknesses in Segments ───────────────────────────────── */
+.sw-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.sw-subheading {
+    font: 600 11px var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 8px;
+}
+
+/* Keep existing sw-item styles */
+
+/* Metric Rows (Score Bars) — keep for possible reuse */
 .score-bars {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -998,7 +1350,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     transform-origin: left;
 }
 
-/* Skills Grid */
+/* Skills Grid — keep for potential reuse */
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1216,9 +1568,14 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
     .score-bars { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
     .sw-grid { grid-template-columns: 1fr; }
-    .modal-header { flex-direction: column; align-items: center; text-align: center; }
+    .sw-split { grid-template-columns: 1fr; }
+    .detail-split { grid-template-columns: 1fr; }
+    .detail-header { flex-direction: column; align-items: flex-start; }
+    .detail-header-left { flex-direction: column; align-items: flex-start; }
     .modal-content { padding: 22px; }
     .modal { border-radius: 22px; }
-    .modal-candidate-info h2 { font-size: 22px; }
+    .detail-header-info h2 { font-size: 20px; }
     .progress-card { padding: 24px 18px; }
+    .resume-viewer { max-height: 350px; }
 }
+

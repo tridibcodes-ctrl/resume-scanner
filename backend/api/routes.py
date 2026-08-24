@@ -264,6 +264,7 @@ async def analyze_session(
                 name=merged_resume.name,
                 parsed_resume=merged_resume,
                 match_analysis=match_analysis,
+                raw_text=raw_text,
             )
 
     results = await asyncio.gather(*[_process_candidate(c) for c in candidates])
@@ -309,6 +310,7 @@ async def get_results(session_id: str):
             name=ParsedResume.model_validate_json(c["parsed_resume_json"]).name if c.get("parsed_resume_json") else None,
             parsed_resume=ParsedResume.model_validate_json(c["parsed_resume_json"]) if c.get("parsed_resume_json") else ParsedResume(),
             match_analysis=MatchAnalysis.model_validate_json(c["match_analysis_json"]),
+            raw_text=c.get("raw_text"),
         ))
 
     ranked = rank_candidates(candidate_results)
