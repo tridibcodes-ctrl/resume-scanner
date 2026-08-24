@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Resume Screener — AI-powered resume analysis and candidate ranking">
+    <title>Smart Resume Screener</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header" id="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <line x1="10" y1="9" x2="8" y2="9"/>
+                        </svg>
+                    </div>
+                    <h1 class="logo-text">ResumeScreener<span class="logo-ai">AI</span></h1>
+                </div>
+                <div class="header-status" id="header-status"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Hero -->
+            <div class="hero">
+                <div class="eyebrow">Resume Screening Tool</div>
+                <h2 class="hero-title">Find the right candidate, with clarity.</h2>
+                <p class="hero-copy">Upload resumes and a job description. Get AI-powered match scores, skill analysis, and practical next steps.</p>
+            </div>
+
+            <!-- Upload Section -->
+            <section class="section upload-section" id="upload-section">
+                <div class="section-header">
+                    <span class="step-badge">1</span>
+                    <h2>Upload Resumes & Job Description</h2>
+                </div>
+
+                <div class="upload-grid">
+                    <!-- Resume Upload -->
+                    <div class="upload-card clay-surface">
+                        <h3>Resumes</h3>
+                        <p class="upload-subtitle">Upload candidate resumes — PDF or TXT, up to 10 files</p>
+                        <div class="dropzone" id="resume-dropzone">
+                            <div class="dropzone-content">
+                                <div class="dropzone-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                </div>
+                                <p>Drop your resumes here or <span class="dropzone-browse">browse files</span></p>
+                                <span class="dropzone-hint">PDF or TXT · up to 5 MB each</span>
+                            </div>
+                            <input type="file" id="resume-input" multiple accept=".pdf,.txt" hidden>
+                        </div>
+                        <div class="resume-actions">
+                            <button class="btn btn-ghost" id="load-sample-resumes">Load samples</button>
+                        </div>
+                        <div class="file-list" id="file-list"></div>
+                    </div>
+
+                    <!-- Job Description -->
+                    <div class="upload-card clay-surface">
+                        <h3>Job Description</h3>
+                        <p class="upload-subtitle">Paste the job description to match candidates against</p>
+                        <textarea
+                            class="jd-textarea"
+                            id="jd-textarea"
+                            placeholder="Paste the full job description here...
+
+Example:
+Senior Software Engineer
+
+Requirements:
+- 5+ years of experience in software development
+- Proficiency in JavaScript, React, Node.js
+- Experience with cloud services (AWS)
+..."
+                            rows="12"
+                        ></textarea>
+                        <div class="jd-actions">
+                            <button class="btn btn-ghost" id="load-sample-jd">Load sample JD</button>
+                            <span class="char-count" id="jd-char-count">0 characters</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <div class="analyze-bar clay-surface">
+                    <div class="analyze-info" id="analyze-info">
+                        <span id="resume-count">0 resumes</span> · <span id="jd-status">No JD</span>
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="analyze-btn" disabled>
+                        <span class="btn-text">Analyze Candidates</span>
+                        <span class="btn-loader" hidden>
+                            <span class="spinner"></span>
+                            Analyzing…
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="section progress-section" id="progress-section" hidden>
+                <div class="progress-card clay-surface">
+                    <div class="progress-header">
+                        <span class="spinner spinner-lg"></span>
+                        <h2>Analyzing Candidates</h2>
+                    </div>
+                    <p class="progress-detail" id="progress-detail">Preparing analysis pipeline…</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-steps" id="progress-steps">
+                        <div class="progress-step" data-step="upload">
+                            <span class="step-indicator"></span> Uploading files
+                        </div>
+                        <div class="progress-step" data-step="jd">
+                            <span class="step-indicator"></span> Parsing job description
+                        </div>
+                        <div class="progress-step" data-step="analyze">
+                            <span class="step-indicator"></span> AI analysis & scoring
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="section results-section" id="results-section" hidden>
+                <div class="section-header">
+                    <span class="step-badge">2</span>
+                    <h2>Candidate Rankings</h2>
+                    <span class="results-meta" id="results-meta"></span>
+                </div>
+
+                <div class="results-grid" id="results-grid">
+                    <!-- Candidate cards inserted dynamically -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Detail Modal -->
+        <div class="modal-overlay" id="modal-overlay" hidden>
+            <div class="modal" id="detail-modal">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <div class="modal-content" id="modal-content">
+                    <!-- Detail content inserted dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
