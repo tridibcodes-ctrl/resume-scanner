@@ -49,14 +49,14 @@ Built with zero budget using free-tier cloud LLMs and deployable for free on Ren
 | Layer | Technology | Why |
 |:------|:-----------|:----|
 | Backend | **FastAPI** | Async, auto-docs, Pydantic-native |
-| PDF Extraction | **PyMuPDF** | 10-50x faster than alternatives, 15MB footprint |
+| PDF Extraction | **pdfplumber** | Robust text extraction & layout preservation |
 | Resume Parsing | **Regex + Heuristics** | Zero ML dependencies, instant, ~600 skill taxonomy |
 | LLM (Primary) | **Google Gemini API** | Free: ~1,500 req/day, native JSON schema output |
 | LLM (Fallback) | **Groq API** | Free: 30 RPM, fastest inference, OpenAI-compatible |
 | LLM Client | **OpenAI SDK** | Works with Gemini/Groq by changing `base_url` |
 | Database | **SQLite + aiosqlite** | Zero-config, stores sessions + parsed resumes |
 | Validation | **Pydantic v2** | Schema enforcement for both API and LLM output |
-| Frontend | **Vite + Vanilla JS** | Fast, no framework bloat, serves as static SPA |
+| Frontend | **Vite + Vanilla JS** | Fast, modern dark-mode glassmorphic SPA |
 
 ---
 
@@ -83,6 +83,63 @@ The system produces a **0-100 overall score** from weighted dimensions:
 - All LLM output validated against Pydantic schemas before use
 - `temperature=0` for deterministic, factual responses
 - Retry logic with schema validation on malformed output
+
+---
+
+## 🤖 LLM Prompts & System Instructions
+
+The screener uses structured prompts with strict schemas to guarantee deterministic, hallucination-free outputs.
+
+### 1. Candidate-JD Match Analysis & Fit Scoring Prompt
+```python
+MATCH_ANALYSIS_SYSTEM = """You are a senior technical recruiter performing a candidate-job fit analysis.
+
+You will be given:
+1. A candidate's parsed resume data (structured JSON)
+2. A job description's requirements (structured JSON)
+3. Pre-computed similarity scores from semantic matching (if available)
+
+Your task is to produce a detailed, factual assessment of how well the candidate fits the job.
+
+STRICT RULES — FOLLOW EXACTLY:
+1. ONLY cite skills, experience, or qualifications that are PRESENT in the candidate's resume data. 
+2. A skill NOT in the resume is MISSING — do NOT assume the candidate has it, even if it seems likely.
+3. Be specific: reference exact skill names, years of experience, project names, and company names from the resume.
+4. For each matched skill, note WHERE in the resume it appears (e.g., "listed in skills", "used at Company X", "used in Project Y").
+5. Score each dimension from 0 to 100:
+   - skills_score: What percentage of required skills does the candidate have?
+   - experience_score: How relevant is their work experience to the role's responsibilities?
+   - education_score: Does their education meet or exceed the requirements?
+   - project_score: How relevant are their projects to the job?
+6. overall_score: Weighted average (skills 35%, experience 35%, education 15%, projects 15%).
+7. Strengths: List 2-4 specific strengths relevant to THIS role.
+8. Weaknesses: List 1-3 specific gaps or missing qualifications. Be concrete, not generic.
+9. Justification: Write 3-5 sentences explaining the overall assessment. Be factual, concise, and actionable.
+10. classification: "Strong Match" if overall_score >= 75, "Moderate Match" if >= 50, "Weak Match" if < 50.
+11. For missing_skills: list ONLY required skills from the job description that are NOT found anywhere in the resume.
+12. For matched_skills: provide the required skill, the matching candidate skill, where it appears (evidence), and a similarity score."""
+```
+
+### 2. Resume Deep Extraction Prompt
+```python
+RESUME_EXTRACT_SYSTEM = """You are a resume parser. Extract structured information from the provided resume text.
+
+Rules:
+- Extract ONLY information explicitly stated in the resume. Do NOT infer or extrapolate.
+- Standardize dates to YYYY-MM or YYYY format when possible.
+- Categorize skills appropriately (e.g., Languages, Frameworks, Cloud, Tools).
+- Return all extracted data conforming strictly to the ResumeData schema."""
+```
+
+### 3. Job Description Parsing Prompt
+```python
+JD_EXTRACT_SYSTEM = """You are a technical recruiter parsing a job description into structured requirements.
+
+Rules:
+- Distinguish strictly between REQUIRED and PREFERRED qualifications.
+- Extract concrete skills, minimum years of experience, and required education levels.
+- Do not fabricate requirements not mentioned in the text."""
+```
 
 ---
 
@@ -171,25 +228,6 @@ curl -X POST "http://localhost:8000/api/session/$SESSION/analyze"
 # Get results
 curl "http://localhost:8000/api/session/$SESSION/results"
 ```
-
----
-
-## 🤖 LLM Prompt Design
-
-### Design Principles
-
-1. **Anti-hallucination**: Every prompt includes "extract ONLY information explicitly stated"
-2. **Structured output**: Pydantic schemas passed to LLM's `response_format` for guaranteed JSON
-3. **Specificity**: Prompts require citing exact skill names, company names, project names from the resume
-4. **Deterministic**: `temperature=0` eliminates creative responses
-5. **Conciseness**: Justifications limited to 3-5 sentences
-
-### Prompt Templates
-
-See [`backend/prompts/`](backend/prompts/) for all prompt templates:
-- `resume_extract.py` — Structured resume data extraction
-- `jd_extract.py` — Job description requirement parsing
-- `match_analysis.py` — Candidate-JD fit analysis with scoring rubric
 
 ---
 
